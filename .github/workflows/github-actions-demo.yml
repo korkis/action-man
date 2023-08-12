@@ -12,5 +12,6 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.HOST }} '
             touch hello-world
+            touch hello-world2
           '
           
