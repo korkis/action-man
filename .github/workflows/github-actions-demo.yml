@@ -1,20 +1,25 @@
 name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+run-name: Deploy 🚀
 on: [push]
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Set up SSH      
+      - name: Set up SSH
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SPRING_BOOT_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
+
+      - name: Build & Test
+        run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.HOST }} '
             cd action-man &&
             git pull &&
             ./mvnw package &&     
-            sudo cp target/action-man.jar /var/action-man/action-man.jar &&
-            sudo service action-man restart                                   
+            sudo cp target/action-man.jar /var/action-man/action-man.jar                                               
           '
+
+      - name: Restart
+        run: ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.HOST }} 'sudo service action-man restart'
           
