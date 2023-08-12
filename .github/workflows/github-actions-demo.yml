@@ -11,10 +11,10 @@ jobs:
           echo "${{ secrets.SPRING_BOOT_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.HOST }} '
-            cd action-man
-            git pull
-            ./mvnw package     
-            sudo cp target/action-man.jar /var/action-man/action-man.jar
-            sudo service action-man restart                                                                   
+            cd action-man &&
+            git pull &&
+            ./mvnw package &&     
+            sudo cp target/action-man.jar /var/action-man/action-man.jar &&
+            sudo service action-man restart                                   
           '
           
