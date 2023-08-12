@@ -10,5 +10,7 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.SPRING_BOOT_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.HOST }}
-          touch hello-world          
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.HOST }} '
+            touch hello-world
+          '
+          
