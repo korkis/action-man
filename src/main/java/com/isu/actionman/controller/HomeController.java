@@ -8,7 +8,7 @@ public class HomeController {
 
     @GetMapping("/test")
     public String test() {
-        return "False Test!";
+        return "Host Test!";
     }
 
 }

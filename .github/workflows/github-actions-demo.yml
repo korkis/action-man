@@ -10,10 +10,12 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.SPRING_BOOT_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan ${{ secrets.HOST }} >> ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
 
       - name: Build & Test
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.HOST }} '
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.HOST }} '
             cd action-man &&
             git pull &&
             ./mvnw package &&     
@@ -21,5 +23,5 @@ jobs:
           '
 
       - name: Restart
-        run: ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.HOST }} 'sudo service action-man restart'
+        run: ssh ${{ secrets.SSH_USER }}@${{ secrets.HOST }} 'sudo service action-man restart'
           
