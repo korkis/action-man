@@ -18,7 +18,7 @@ jobs:
           ssh ${{ secrets.SSH_USER }}@${{ secrets.HOST }} '
             cd action-man &&
             git pull &&
-            ./mvnw package &&     
+            ./mvnw clean package &&     
             sudo cp target/action-man.jar /var/action-man/action-man.jar                                               
           '
 
