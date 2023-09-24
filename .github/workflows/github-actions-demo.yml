@@ -24,6 +24,5 @@ jobs:
 
       - name: Restart
         run: |
-          ssh ${{ secrets.SSH_USER }}@${{ secrets.HOST }} 'sudo service action-man stop'
-          ssh ${{ secrets.SSH_USER }}@${{ secrets.HOST }} 'sudo service action-man start'
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.HOST }} 'sudo systemctl restart action-man'
           
