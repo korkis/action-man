@@ -8,7 +8,7 @@ public class HomeController {
 
     @GetMapping("/test")
     public String test() {
-        return "SystemCtl2";
+        return "2023-09-25";
     }
 
 }
